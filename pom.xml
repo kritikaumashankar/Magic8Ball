@@ -25,17 +25,22 @@
 	    <artifactId>jersey-client</artifactId>
 	    <version>2.32</version>
 	</dependency>
-	<dependency>
-	    <groupId>org.glassfish.jersey.inject</groupId>
-	    <artifactId>jersey-hk2</artifactId>
-	    <version>2.26</version>
-	</dependency>
-	<dependency>
-	    <groupId>javax.servlet</groupId>
-	    <artifactId>javax.servlet-api</artifactId>
-	    <version>3.0.1</version>
-	    <scope>provided</scope>
-	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.inject/jersey-hk2 -->
+<dependency>
+    <groupId>org.glassfish.jersey.inject</groupId>
+    <artifactId>jersey-hk2</artifactId>
+    <version>2.32</version>
+</dependency>
+
+
+	<!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>servlet-api</artifactId>
+    <version>2.5</version>
+    <scope>provided</scope>
+</dependency>
+
     <dependency>
         <groupId>org.mongodb</groupId>
         <artifactId>mongo-java-driver</artifactId>
@@ -73,6 +78,14 @@
 				<target>1.8</target>
 			</configuration>
 		</plugin>
+		<plugin>
+      <groupId>com.heroku.sdk</groupId>
+      <artifactId>heroku-maven-plugin</artifactId>
+      <version>3.0.4</version>
+      <configuration>
+        <appName>magic8ball-app</appName>
+      </configuration>
+    </plugin>
 	</plugins>
   </build>
 </project>

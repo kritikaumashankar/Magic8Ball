@@ -29,12 +29,11 @@ public class Magic8BallService {
 	
 
 	private List<Document> answerList = new ArrayList<Document>();
-
 	
 	/*Connect to DB*/
 	public MongoCollection<Document> connectToDB() throws UnknownHostException {
 		System.out.println("Connect to DB");
-		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
+		MongoClient mongoClient = new MongoClient(new MongoClientURI(System.getenv("mongodb.uri")));
 		//DB database = mongoClient.getDB("MagicBall");
 		MongoDatabase db = mongoClient.getDatabase("MagicBall");
 		if(db.getCollection("answers")==null)
