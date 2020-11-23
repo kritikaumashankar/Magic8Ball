@@ -2,3 +2,4 @@
 .project
 .settings/
 .classpath
+/WebContent/WEB-IN/lib/
