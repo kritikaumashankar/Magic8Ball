@@ -19,6 +19,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -70,9 +71,9 @@ public class Magic8BallService {
 	/* GET = Getting a random answer for a question */
 	
 	@GET
-	@Path("/{question}")
+	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
-	public String getAnswer(@PathParam("question") String question) throws UnknownHostException {
+	public String getAnswer(@QueryParam("question") String question) throws UnknownHostException {
 		
 		//MongoCollection<Document> collection = connectToDB();
 		String list=getAllAnswers();
@@ -84,10 +85,10 @@ public class Magic8BallService {
 	/* CREATE = Adding an answer */
 	
 	@POST
-	@Path("/answers/{ans}")
+	@Path("/answers/")
 	//@Consumes(MediaType.TEXT_HTML) //specify which MIME media types of representations a resource can accept, or consume, from the client.Request type
 	@Produces(MediaType.APPLICATION_JSON) //response type
-	public Response addAnswer(@PathParam("ans") String ans) throws URISyntaxException, UnknownHostException {
+	public Response addAnswer(@QueryParam("answer") String ans) throws URISyntaxException, UnknownHostException {
 		MongoCollection<Document> collection = connectToDB();
 		Document document = new Document();
 		document.put("answer", ans);
@@ -110,9 +111,9 @@ public class Magic8BallService {
 	/* Update = Updating an answer */
 	
 	@PUT
-	@Path("/answers/{id}/{ans}")
+	@Path("/answers/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateAnswersById(@PathParam("id") String id, @PathParam("ans") String ans) throws UnknownHostException {
+	public Response updateAnswersById(@QueryParam("id") String id, @QueryParam("ans") String ans) throws UnknownHostException {
 		
 		MongoCollection<Document> collection = connectToDB();
 		String list=getAllAnswers();
@@ -141,9 +142,9 @@ public class Magic8BallService {
 	
 	/* DELETE = Deleting an answer */
 	@DELETE
-	@Path("/answers/{id}")
+	@Path("/answers/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteAnswerById(@PathParam("id") String id) throws UnknownHostException {
+	public Response deleteAnswerById(@QueryParam("id") String id) throws UnknownHostException {
 		MongoCollection<Document> collection = connectToDB();
 		String list=getAllAnswers();
 		Document doc= (Document) answerList.stream()
