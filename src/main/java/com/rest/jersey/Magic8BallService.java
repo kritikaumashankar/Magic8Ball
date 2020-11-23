@@ -1,10 +1,14 @@
 package com.rest.jersey;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -30,10 +34,32 @@ public class Magic8BallService {
 
 	private List<Document> answerList = new ArrayList<Document>();
 	
+	public String readPropertyFile() {
+		String uri ="";
+		try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
+
+            Properties prop = new Properties();
+
+            // load a properties file
+            prop.load(input);
+
+            uri = prop.getProperty("mongodb.uri");
+            // get the property value and print it out
+		}catch (IOException ex) {
+            ex.printStackTrace();
+        }
+		return uri;
+	}
+	
 	/*Connect to DB*/
 	public MongoCollection<Document> connectToDB() throws UnknownHostException {
 		System.out.println("Connect to DB");
-		MongoClient mongoClient = new MongoClient(new MongoClientURI(System.getenv("mongodb.uri")));
+		MongoClient mongoClient;
+		if(readPropertyFile().isEmpty())
+			 mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
+		else
+			 mongoClient = new MongoClient(new MongoClientURI(readPropertyFile()));
+
 		//DB database = mongoClient.getDB("MagicBall");
 		MongoDatabase db = mongoClient.getDatabase("MagicBall");
 		if(db.getCollection("answers")==null)
