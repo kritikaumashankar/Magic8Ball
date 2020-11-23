@@ -113,7 +113,7 @@ public class Magic8BallService {
 	@PUT
 	@Path("/answers/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateAnswersById(@QueryParam("id") String id, @QueryParam("ans") String ans) throws UnknownHostException {
+	public Response updateAnswersById(@QueryParam("id") String id, @QueryParam("answer") String ans) throws UnknownHostException {
 		
 		MongoCollection<Document> collection = connectToDB();
 		String list=getAllAnswers();
