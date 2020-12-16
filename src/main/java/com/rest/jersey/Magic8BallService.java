@@ -72,8 +72,8 @@ public class Magic8BallService {
 	
 	@GET
 	@Path("/")
-	@Produces(MediaType.TEXT_HTML)
-	public String getAnswer(@QueryParam("question") String question) throws UnknownHostException {
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAnswer() throws UnknownHostException {
 		
 		//MongoCollection<Document> collection = connectToDB();
 		String list=getAllAnswers();
